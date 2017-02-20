@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="java,并发,线程池," />
+  <meta name="keywords" content="日积月累," />
 
 
 
@@ -87,19 +87,19 @@
 
 
 
-<meta name="description" content="调用shutdown后再次调用schedule()或者scheduleAtFixedRate()的行为默认会直接抛出RejectedExecutionException异常
-具体原因是：ScheduledThreadPoolExecutor在任务提交后，会将任务包装成ScheduledFutureTask，然后调用delayedExecute方法，这个方法代码如下：1234567891011121">
+<meta name="description" content="Distributed, scalable, durable, and highly available message queue system.https://eng.uber.com/cherami/https://github.com/uber/cherami-server
+###Introducing Cloud Spanner: a global database service fo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ScheduledThreadPoolExecutor的shutdown方法行为">
-<meta property="og:url" content="http://yoursite.com/2017/02/19/ScheduledThreadPoolExecutor的shutdown方法分析/index.html">
+<meta property="og:title" content="17-02-20">
+<meta property="og:url" content="http://yoursite.com/2017/02/20/17-02-20/index.html">
 <meta property="og:site_name" content="小柳蛋的日志">
-<meta property="og:description" content="调用shutdown后再次调用schedule()或者scheduleAtFixedRate()的行为默认会直接抛出RejectedExecutionException异常
-具体原因是：ScheduledThreadPoolExecutor在任务提交后，会将任务包装成ScheduledFutureTask，然后调用delayedExecute方法，这个方法代码如下：1234567891011121">
-<meta property="og:updated_time" content="2017-02-20T05:32:17.000Z">
+<meta property="og:description" content="Distributed, scalable, durable, and highly available message queue system.https://eng.uber.com/cherami/https://github.com/uber/cherami-server
+###Introducing Cloud Spanner: a global database service fo">
+<meta property="og:updated_time" content="2017-02-20T13:16:53.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ScheduledThreadPoolExecutor的shutdown方法行为">
-<meta name="twitter:description" content="调用shutdown后再次调用schedule()或者scheduleAtFixedRate()的行为默认会直接抛出RejectedExecutionException异常
-具体原因是：ScheduledThreadPoolExecutor在任务提交后，会将任务包装成ScheduledFutureTask，然后调用delayedExecute方法，这个方法代码如下：1234567891011121">
+<meta name="twitter:title" content="17-02-20">
+<meta name="twitter:description" content="Distributed, scalable, durable, and highly available message queue system.https://eng.uber.com/cherami/https://github.com/uber/cherami-server
+###Introducing Cloud Spanner: a global database service fo">
 
 
 
@@ -127,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/02/19/ScheduledThreadPoolExecutor的shutdown方法分析/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/02/20/17-02-20/"/>
 
 
 
 
 
-  <title> ScheduledThreadPoolExecutor的shutdown方法行为 | 小柳蛋的日志 </title>
+  <title> 17-02-20 | 小柳蛋的日志 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -252,7 +252,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/19/ScheduledThreadPoolExecutor的shutdown方法分析/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/20/17-02-20/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="LiuDunxu">
@@ -276,7 +276,7 @@
             
             
               
-                ScheduledThreadPoolExecutor的shutdown方法行为
+                17-02-20
               
             
           </h1>
@@ -291,8 +291,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-19T18:36:30+08:00">
-                2017-02-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-20T21:05:02+08:00">
+                2017-02-20
               </time>
             
 
@@ -314,8 +314,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/blog/" itemprop="url" rel="index">
-                    <span itemprop="name">blog</span>
+                  <a href="/categories/日积月累/" itemprop="url" rel="index">
+                    <span itemprop="name">日积月累</span>
                   </a>
                 </span>
 
@@ -349,18 +349,11 @@
       
 
       
-        <h2 id="调用shutdown后再次调用schedule-或者scheduleAtFixedRate-的行为"><a href="#调用shutdown后再次调用schedule-或者scheduleAtFixedRate-的行为" class="headerlink" title="调用shutdown后再次调用schedule()或者scheduleAtFixedRate()的行为"></a>调用shutdown后再次调用schedule()或者scheduleAtFixedRate()的行为</h2><p><strong>默认会直接抛出RejectedExecutionException异常</strong></p>
-<p>具体原因是：<br>ScheduledThreadPoolExecutor在任务提交后，会将任务包装成ScheduledFutureTask，然后调用delayedExecute方法，这个方法代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">private void delayedExecute(RunnableScheduledFuture&lt;?&gt; task) &#123;</div><div class="line">        if (isShutdown())  // 如果任务shutdown了，会直接reject</div><div class="line">            reject(task);</div><div class="line">        else &#123;</div><div class="line">            super.getQueue().add(task);</div><div class="line">            if (isShutdown() &amp;&amp;</div><div class="line">                !canRunInCurrentRunState(task.isPeriodic()) &amp;&amp;</div><div class="line">                remove(task))</div><div class="line">                task.cancel(false);</div><div class="line">            else</div><div class="line">                ensurePrestart();</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
-<p>而reject方法会调用ThreadPoolExecutor的成员变量handler的rejectedExecution方法，默认的handler实现为AbortPolicy，这个的实现是抛出RejectedExecutionException异常</p>
-<p><strong>handler的具体实现可以通过ScheduledThreadPoolExecutor 的setRejectedExecutionHandler函数或者构造函数中修改</strong></p>
-<h2 id="通过schedule-添加的延迟执行任务还没执行时就调用shutdown-方法的行为"><a href="#通过schedule-添加的延迟执行任务还没执行时就调用shutdown-方法的行为" class="headerlink" title="通过schedule()添加的延迟执行任务还没执行时就调用shutdown()方法的行为"></a>通过schedule()添加的延迟执行任务还没执行时就调用shutdown()方法的行为</h2><p><strong>默认会继续执行还未来得及执行的任务</strong></p>
-<p>具体原因是：ScheduledFutureTask的run方法实现如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">public void run() &#123;</div><div class="line">            boolean periodic = isPeriodic();</div><div class="line">            if (!canRunInCurrentRunState(periodic))</div><div class="line">                cancel(false);</div><div class="line">            else if (!periodic)</div><div class="line">                ScheduledFutureTask.super.run();</div><div class="line">            else if (ScheduledFutureTask.super.runAndReset()) &#123;</div><div class="line">                setNextRunTime();</div><div class="line">                reExecutePeriodic(outerTask);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">boolean canRunInCurrentRunState(boolean periodic) &#123;</div><div class="line">        return isRunningOrShutdown(periodic ?</div><div class="line">                                   continueExistingPeriodicTasksAfterShutdown :</div><div class="line">                                   executeExistingDelayedTasksAfterShutdown);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p>通过schedule方法包装成的ScheduledFutureTask的成员变量的isPeriodic()实现返回的是false，所以canRunInCurrentRunState函数的返回值取决于executeExistingDelayedTasksAfterShutdown，而这个变量默认为true，所以会继续执行已经schedule的方法。</p>
-<p><strong>可以通过ScheduledThreadPoolExecutor 的setExecuteExistingDelayedTasksAfterShutdownPolicy函数修改</strong></p>
-<h2 id="通过scheduleAtFixedRate添加任务后调用shutdown-方法的行为"><a href="#通过scheduleAtFixedRate添加任务后调用shutdown-方法的行为" class="headerlink" title="通过scheduleAtFixedRate添加任务后调用shutdown()方法的行为"></a>通过scheduleAtFixedRate添加任务后调用shutdown()方法的行为</h2><p><strong>默认会停止继续执行该任务</strong></p>
-<p>原因为：通过scheduleAtFixedRate方法包装成的ScheduledFutureTask的成员变量的isPeriodic()实现返回的是true，所以canRunInCurrentRunState函数的返回值取决于continueExistingPeriodicTasksAfterShutdown，而这个变量默认为false，所以会停止执行已经schedule的方法。</p>
-<p><strong>可以通过ScheduledThreadPoolExecutor的setContinueExistingPeriodicTasksAfterShutdownPolicy函数修改</strong></p>
+        <h3 id="Distributed-scalable-durable-and-highly-available-message-queue-system"><a href="#Distributed-scalable-durable-and-highly-available-message-queue-system" class="headerlink" title="Distributed, scalable, durable, and highly available message queue system."></a>Distributed, scalable, durable, and highly available message queue system.</h3><p><a href="https://eng.uber.com/cherami/" target="_blank" rel="external">https://eng.uber.com/cherami/</a><br><a href="https://github.com/uber/cherami-server" target="_blank" rel="external">https://github.com/uber/cherami-server</a></p>
+<p>###Introducing Cloud Spanner: a global database service for mission-critical applications<br><a href="https://cloudplatform.googleblog.com/2017/02/introducing-Cloud-Spanner-a-global-database-service-for-mission-critical-applications.html" target="_blank" rel="external">https://cloudplatform.googleblog.com/2017/02/introducing-Cloud-Spanner-a-global-database-service-for-mission-critical-applications.html</a></p>
+<h3 id="Modern-configuration-library-for-distributed-apps-written-in-Java"><a href="#Modern-configuration-library-for-distributed-apps-written-in-Java" class="headerlink" title="Modern configuration library for distributed apps written in Java."></a>Modern configuration library for distributed apps written in Java.</h3><p><a href="https://github.com/cfg4j/cfg4j" target="_blank" rel="external">https://github.com/cfg4j/cfg4j</a></p>
+<h3 id="A-high-performance-caching-library-for-Java-8"><a href="#A-high-performance-caching-library-for-Java-8" class="headerlink" title="A high performance caching library for Java 8"></a>A high performance caching library for Java 8</h3><p><a href="https://github.com/ben-manes/caffeine" target="_blank" rel="external">https://github.com/ben-manes/caffeine</a></p>
+<h3 id="Hashed-wheel-timers"><a href="#Hashed-wheel-timers" class="headerlink" title="Hashed wheel timers"></a>Hashed wheel timers</h3><p><a href="http://rajivkurian.github.io/blog/2014/11/11/hashed-wheel-timer-an-exercise-in-data-structures/" target="_blank" rel="external">http://rajivkurian.github.io/blog/2014/11/11/hashed-wheel-timer-an-exercise-in-data-structures/</a></p>
 
       
     </div>
@@ -384,7 +377,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/java-并发-线程池/" rel="tag"># java,并发,线程池</a>
+            <a href="/tags/日积月累/" rel="tag"># 日积月累</a>
           
         </div>
       
@@ -397,8 +390,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/19/我的第一篇日志/" rel="next" title="我的第一篇日志">
-                <i class="fa fa-chevron-left"></i> 我的第一篇日志
+              <a href="/2017/02/19/ScheduledThreadPoolExecutor的shutdown方法分析/" rel="next" title="ScheduledThreadPoolExecutor的shutdown方法行为">
+                <i class="fa fa-chevron-left"></i> ScheduledThreadPoolExecutor的shutdown方法行为
               </a>
             
           </div>
@@ -406,10 +399,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/02/20/17-02-20/" rel="prev" title="17-02-20">
-                17-02-20 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -534,7 +523,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#调用shutdown后再次调用schedule-或者scheduleAtFixedRate-的行为"><span class="nav-number">1.</span> <span class="nav-text">调用shutdown后再次调用schedule()或者scheduleAtFixedRate()的行为</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过schedule-添加的延迟执行任务还没执行时就调用shutdown-方法的行为"><span class="nav-number">2.</span> <span class="nav-text">通过schedule()添加的延迟执行任务还没执行时就调用shutdown()方法的行为</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过scheduleAtFixedRate添加任务后调用shutdown-方法的行为"><span class="nav-number">3.</span> <span class="nav-text">通过scheduleAtFixedRate添加任务后调用shutdown()方法的行为</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Distributed-scalable-durable-and-highly-available-message-queue-system"><span class="nav-number">1.</span> <span class="nav-text">Distributed, scalable, durable, and highly available message queue system.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Modern-configuration-library-for-distributed-apps-written-in-Java"><span class="nav-number">2.</span> <span class="nav-text">Modern configuration library for distributed apps written in Java.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A-high-performance-caching-library-for-Java-8"><span class="nav-number">3.</span> <span class="nav-text">A high performance caching library for Java 8</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hashed-wheel-timers"><span class="nav-number">4.</span> <span class="nav-text">Hashed wheel timers</span></a></li></ol></div>
             
 
           </div>
