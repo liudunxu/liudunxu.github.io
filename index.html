@@ -354,6 +354,8 @@
 <h3 id="Modern-configuration-library-for-distributed-apps-written-in-Java"><a href="#Modern-configuration-library-for-distributed-apps-written-in-Java" class="headerlink" title="Modern configuration library for distributed apps written in Java."></a>Modern configuration library for distributed apps written in Java.</h3><p><a href="https://github.com/cfg4j/cfg4j" target="_blank" rel="external">https://github.com/cfg4j/cfg4j</a></p>
 <h3 id="A-high-performance-caching-library-for-Java-8"><a href="#A-high-performance-caching-library-for-Java-8" class="headerlink" title="A high performance caching library for Java 8"></a>A high performance caching library for Java 8</h3><p><a href="https://github.com/ben-manes/caffeine" target="_blank" rel="external">https://github.com/ben-manes/caffeine</a></p>
 <h3 id="Hashed-wheel-timers"><a href="#Hashed-wheel-timers" class="headerlink" title="Hashed wheel timers"></a>Hashed wheel timers</h3><p><a href="http://rajivkurian.github.io/blog/2014/11/11/hashed-wheel-timer-an-exercise-in-data-structures/" target="_blank" rel="external">http://rajivkurian.github.io/blog/2014/11/11/hashed-wheel-timer-an-exercise-in-data-structures/</a></p>
+<p><strong>1.牺牲一定的准确性，换取资源的节约</strong></p>
+<p><strong>2.与ScheduledThreadPoolExecutor相比的优势是只需要启动一个线程即可，节约资源，缺点是不如ScheduledThreadPoolExecutor准确，并且任务之间会相互影响，比如有一个耗时很长的任务，必须要执行完才能执行其他的任务</strong></p>
 
           
         
