@@ -95,7 +95,7 @@
 <meta property="og:site_name" content="小柳蛋的日志">
 <meta property="og:description" content="调用shutdown后再次调用schedule()或者scheduleAtFixedRate()的行为默认会直接抛出RejectedExecutionException异常
 具体原因是：ScheduledThreadPoolExecutor在任务提交后，会将任务包装成ScheduledFutureTask，然后调用delayedExecute方法，这个方法代码如下：1234567891011121">
-<meta property="og:updated_time" content="2017-02-20T05:32:17.000Z">
+<meta property="og:updated_time" content="2017-02-20T14:56:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ScheduledThreadPoolExecutor的shutdown方法行为">
 <meta name="twitter:description" content="调用shutdown后再次调用schedule()或者scheduleAtFixedRate()的行为默认会直接抛出RejectedExecutionException异常
@@ -143,6 +143,16 @@
 
 
 
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?5d7ab71eda4e0aad485f2624e13c0e23";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
@@ -314,8 +324,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/blog/" itemprop="url" rel="index">
-                    <span itemprop="name">blog</span>
+                  <a href="/categories/技术文章/" itemprop="url" rel="index">
+                    <span itemprop="name">技术文章</span>
                   </a>
                 </span>
 
@@ -350,12 +360,12 @@
 
       
         <h2 id="调用shutdown后再次调用schedule-或者scheduleAtFixedRate-的行为"><a href="#调用shutdown后再次调用schedule-或者scheduleAtFixedRate-的行为" class="headerlink" title="调用shutdown后再次调用schedule()或者scheduleAtFixedRate()的行为"></a>调用shutdown后再次调用schedule()或者scheduleAtFixedRate()的行为</h2><p><strong>默认会直接抛出RejectedExecutionException异常</strong></p>
-<p>具体原因是：<br>ScheduledThreadPoolExecutor在任务提交后，会将任务包装成ScheduledFutureTask，然后调用delayedExecute方法，这个方法代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">private void delayedExecute(RunnableScheduledFuture&lt;?&gt; task) &#123;</div><div class="line">        if (isShutdown())  // 如果任务shutdown了，会直接reject</div><div class="line">            reject(task);</div><div class="line">        else &#123;</div><div class="line">            super.getQueue().add(task);</div><div class="line">            if (isShutdown() &amp;&amp;</div><div class="line">                !canRunInCurrentRunState(task.isPeriodic()) &amp;&amp;</div><div class="line">                remove(task))</div><div class="line">                task.cancel(false);</div><div class="line">            else</div><div class="line">                ensurePrestart();</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>具体原因是：<br>ScheduledThreadPoolExecutor在任务提交后，会将任务包装成ScheduledFutureTask，然后调用delayedExecute方法，这个方法代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">delayedExecute</span><span class="params">(RunnableScheduledFuture&lt;?&gt; task)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (isShutdown())  <span class="comment">// 如果任务shutdown了，会直接reject</span></div><div class="line">            reject(task);</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">super</span>.getQueue().add(task);</div><div class="line">            <span class="keyword">if</span> (isShutdown() &amp;&amp;</div><div class="line">                !canRunInCurrentRunState(task.isPeriodic()) &amp;&amp;</div><div class="line">                remove(task))</div><div class="line">                task.cancel(<span class="keyword">false</span>);</div><div class="line">            <span class="keyword">else</span></div><div class="line">                ensurePrestart();</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
 <p>而reject方法会调用ThreadPoolExecutor的成员变量handler的rejectedExecution方法，默认的handler实现为AbortPolicy，这个的实现是抛出RejectedExecutionException异常</p>
 <p><strong>handler的具体实现可以通过ScheduledThreadPoolExecutor 的setRejectedExecutionHandler函数或者构造函数中修改</strong></p>
 <h2 id="通过schedule-添加的延迟执行任务还没执行时就调用shutdown-方法的行为"><a href="#通过schedule-添加的延迟执行任务还没执行时就调用shutdown-方法的行为" class="headerlink" title="通过schedule()添加的延迟执行任务还没执行时就调用shutdown()方法的行为"></a>通过schedule()添加的延迟执行任务还没执行时就调用shutdown()方法的行为</h2><p><strong>默认会继续执行还未来得及执行的任务</strong></p>
 <p>具体原因是：ScheduledFutureTask的run方法实现如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">public void run() &#123;</div><div class="line">            boolean periodic = isPeriodic();</div><div class="line">            if (!canRunInCurrentRunState(periodic))</div><div class="line">                cancel(false);</div><div class="line">            else if (!periodic)</div><div class="line">                ScheduledFutureTask.super.run();</div><div class="line">            else if (ScheduledFutureTask.super.runAndReset()) &#123;</div><div class="line">                setNextRunTime();</div><div class="line">                reExecutePeriodic(outerTask);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">boolean canRunInCurrentRunState(boolean periodic) &#123;</div><div class="line">        return isRunningOrShutdown(periodic ?</div><div class="line">                                   continueExistingPeriodicTasksAfterShutdown :</div><div class="line">                                   executeExistingDelayedTasksAfterShutdown);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">boolean</span> periodic = isPeriodic();</div><div class="line">            <span class="keyword">if</span> (!canRunInCurrentRunState(periodic))</div><div class="line">                cancel(<span class="keyword">false</span>);</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (!periodic)</div><div class="line">                ScheduledFutureTask.<span class="keyword">super</span>.run();</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (ScheduledFutureTask.<span class="keyword">super</span>.runAndReset()) &#123;</div><div class="line">                setNextRunTime();</div><div class="line">                reExecutePeriodic(outerTask);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">canRunInCurrentRunState</span><span class="params">(<span class="keyword">boolean</span> periodic)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> isRunningOrShutdown(periodic ?</div><div class="line">                                   continueExistingPeriodicTasksAfterShutdown :</div><div class="line">                                   executeExistingDelayedTasksAfterShutdown);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 <p>通过schedule方法包装成的ScheduledFutureTask的成员变量的isPeriodic()实现返回的是false，所以canRunInCurrentRunState函数的返回值取决于executeExistingDelayedTasksAfterShutdown，而这个变量默认为true，所以会继续执行已经schedule的方法。</p>
 <p><strong>可以通过ScheduledThreadPoolExecutor 的setExecuteExistingDelayedTasksAfterShutdownPolicy函数修改</strong></p>
 <h2 id="通过scheduleAtFixedRate添加任务后调用shutdown-方法的行为"><a href="#通过scheduleAtFixedRate添加任务后调用shutdown-方法的行为" class="headerlink" title="通过scheduleAtFixedRate添加任务后调用shutdown()方法的行为"></a>通过scheduleAtFixedRate添加任务后调用shutdown()方法的行为</h2><p><strong>默认会停止继续执行该任务</strong></p>
@@ -384,7 +394,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/java-并发-线程池/" rel="tag"># java,并发,线程池</a>
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/并发/" rel="tag"># 并发</a>
+          
+            <a href="/tags/线程池/" rel="tag"># 线程池</a>
           
         </div>
       
@@ -490,7 +504,7 @@
           
             <div class="site-state-item site-state-categories">
               
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">分类</span>
               
             </div>
@@ -499,7 +513,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
