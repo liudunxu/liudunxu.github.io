@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="java,并发,线程池," />
+  <meta name="keywords" content="日积月累," />
 
 
 
@@ -87,19 +87,16 @@
 
 
 
-<meta name="description" content="调用shutdown后再次调用schedule()或者scheduleAtFixedRate()的行为默认会直接抛出RejectedExecutionException异常
-具体原因是：ScheduledThreadPoolExecutor在任务提交后，会将任务包装成ScheduledFutureTask，然后调用delayedExecute方法，这个方法代码如下：1234567891011121">
+<meta name="description" content="每日积累扛住100亿次请求？我们来试一试https://github.com/xiaojiaqi/10billionhongbaos/wiki/%E6%89%9B%E4%BD%8F100%E4%BA%BF%E6%AC%A1%E8%AF%B7%E6%B1%82%EF%BC%9F%E6%88%91%E4%BB%AC%E6%9D%A5%E8%AF%95%E4%B8%80%E8%AF%95https://">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ScheduledThreadPoolExecutor的shutdown方法行为">
-<meta property="og:url" content="http://yoursite.com/2017/02/19/ScheduledThreadPoolExecutor的shutdown方法分析/index.html">
+<meta property="og:title" content="17-02-22">
+<meta property="og:url" content="http://yoursite.com/2017/02/22/17-02-22/index.html">
 <meta property="og:site_name" content="小柳蛋的日志">
-<meta property="og:description" content="调用shutdown后再次调用schedule()或者scheduleAtFixedRate()的行为默认会直接抛出RejectedExecutionException异常
-具体原因是：ScheduledThreadPoolExecutor在任务提交后，会将任务包装成ScheduledFutureTask，然后调用delayedExecute方法，这个方法代码如下：1234567891011121">
-<meta property="og:updated_time" content="2017-02-20T14:56:06.000Z">
+<meta property="og:description" content="每日积累扛住100亿次请求？我们来试一试https://github.com/xiaojiaqi/10billionhongbaos/wiki/%E6%89%9B%E4%BD%8F100%E4%BA%BF%E6%AC%A1%E8%AF%B7%E6%B1%82%EF%BC%9F%E6%88%91%E4%BB%AC%E6%9D%A5%E8%AF%95%E4%B8%80%E8%AF%95https://">
+<meta property="og:updated_time" content="2017-02-22T11:28:19.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ScheduledThreadPoolExecutor的shutdown方法行为">
-<meta name="twitter:description" content="调用shutdown后再次调用schedule()或者scheduleAtFixedRate()的行为默认会直接抛出RejectedExecutionException异常
-具体原因是：ScheduledThreadPoolExecutor在任务提交后，会将任务包装成ScheduledFutureTask，然后调用delayedExecute方法，这个方法代码如下：1234567891011121">
+<meta name="twitter:title" content="17-02-22">
+<meta name="twitter:description" content="每日积累扛住100亿次请求？我们来试一试https://github.com/xiaojiaqi/10billionhongbaos/wiki/%E6%89%9B%E4%BD%8F100%E4%BA%BF%E6%AC%A1%E8%AF%B7%E6%B1%82%EF%BC%9F%E6%88%91%E4%BB%AC%E6%9D%A5%E8%AF%95%E4%B8%80%E8%AF%95https://">
 
 
 
@@ -127,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/02/19/ScheduledThreadPoolExecutor的shutdown方法分析/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/02/22/17-02-22/"/>
 
 
 
 
 
-  <title> ScheduledThreadPoolExecutor的shutdown方法行为 | 小柳蛋的日志 </title>
+  <title> 17-02-22 | 小柳蛋的日志 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -262,7 +259,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/19/ScheduledThreadPoolExecutor的shutdown方法分析/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/22/17-02-22/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="LiuDunxu">
@@ -286,7 +283,7 @@
             
             
               
-                ScheduledThreadPoolExecutor的shutdown方法行为
+                17-02-22
               
             
           </h1>
@@ -301,8 +298,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-19T18:36:30+08:00">
-                2017-02-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-22T19:27:15+08:00">
+                2017-02-22
               </time>
             
 
@@ -324,8 +321,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术文章/" itemprop="url" rel="index">
-                    <span itemprop="name">技术文章</span>
+                  <a href="/categories/日积月累/" itemprop="url" rel="index">
+                    <span itemprop="name">日积月累</span>
                   </a>
                 </span>
 
@@ -359,18 +356,13 @@
       
 
       
-        <h2 id="调用shutdown后再次调用schedule-或者scheduleAtFixedRate-的行为"><a href="#调用shutdown后再次调用schedule-或者scheduleAtFixedRate-的行为" class="headerlink" title="调用shutdown后再次调用schedule()或者scheduleAtFixedRate()的行为"></a>调用shutdown后再次调用schedule()或者scheduleAtFixedRate()的行为</h2><p><strong>默认会直接抛出RejectedExecutionException异常</strong></p>
-<p>具体原因是：<br>ScheduledThreadPoolExecutor在任务提交后，会将任务包装成ScheduledFutureTask，然后调用delayedExecute方法，这个方法代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">delayedExecute</span><span class="params">(RunnableScheduledFuture&lt;?&gt; task)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (isShutdown())  <span class="comment">// 如果任务shutdown了，会直接reject</span></div><div class="line">            reject(task);</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">super</span>.getQueue().add(task);</div><div class="line">            <span class="keyword">if</span> (isShutdown() &amp;&amp;</div><div class="line">                !canRunInCurrentRunState(task.isPeriodic()) &amp;&amp;</div><div class="line">                remove(task))</div><div class="line">                task.cancel(<span class="keyword">false</span>);</div><div class="line">            <span class="keyword">else</span></div><div class="line">                ensurePrestart();</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
-<p>而reject方法会调用ThreadPoolExecutor的成员变量handler的rejectedExecution方法，默认的handler实现为AbortPolicy，这个的实现是抛出RejectedExecutionException异常</p>
-<p><strong>handler的具体实现可以通过ScheduledThreadPoolExecutor 的setRejectedExecutionHandler函数或者构造函数中修改</strong></p>
-<h2 id="通过schedule-添加的延迟执行任务还没执行时就调用shutdown-方法的行为"><a href="#通过schedule-添加的延迟执行任务还没执行时就调用shutdown-方法的行为" class="headerlink" title="通过schedule()添加的延迟执行任务还没执行时就调用shutdown()方法的行为"></a>通过schedule()添加的延迟执行任务还没执行时就调用shutdown()方法的行为</h2><p><strong>默认会继续执行还未来得及执行的任务</strong></p>
-<p>具体原因是：ScheduledFutureTask的run方法实现如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">boolean</span> periodic = isPeriodic();</div><div class="line">            <span class="keyword">if</span> (!canRunInCurrentRunState(periodic))</div><div class="line">                cancel(<span class="keyword">false</span>);</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (!periodic)</div><div class="line">                ScheduledFutureTask.<span class="keyword">super</span>.run();</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (ScheduledFutureTask.<span class="keyword">super</span>.runAndReset()) &#123;</div><div class="line">                setNextRunTime();</div><div class="line">                reExecutePeriodic(outerTask);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">canRunInCurrentRunState</span><span class="params">(<span class="keyword">boolean</span> periodic)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> isRunningOrShutdown(periodic ?</div><div class="line">                                   continueExistingPeriodicTasksAfterShutdown :</div><div class="line">                                   executeExistingDelayedTasksAfterShutdown);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p>通过schedule方法包装成的ScheduledFutureTask的成员变量的isPeriodic()实现返回的是false，所以canRunInCurrentRunState函数的返回值取决于executeExistingDelayedTasksAfterShutdown，而这个变量默认为true，所以会继续执行已经schedule的方法。</p>
-<p><strong>可以通过ScheduledThreadPoolExecutor 的setExecuteExistingDelayedTasksAfterShutdownPolicy函数修改</strong></p>
-<h2 id="通过scheduleAtFixedRate添加任务后调用shutdown-方法的行为"><a href="#通过scheduleAtFixedRate添加任务后调用shutdown-方法的行为" class="headerlink" title="通过scheduleAtFixedRate添加任务后调用shutdown()方法的行为"></a>通过scheduleAtFixedRate添加任务后调用shutdown()方法的行为</h2><p><strong>默认会停止继续执行该任务</strong></p>
-<p>原因为：通过scheduleAtFixedRate方法包装成的ScheduledFutureTask的成员变量的isPeriodic()实现返回的是true，所以canRunInCurrentRunState函数的返回值取决于continueExistingPeriodicTasksAfterShutdown，而这个变量默认为false，所以会停止执行已经schedule的方法。</p>
-<p><strong>可以通过ScheduledThreadPoolExecutor的setContinueExistingPeriodicTasksAfterShutdownPolicy函数修改</strong></p>
+        <h2 id="每日积累"><a href="#每日积累" class="headerlink" title="每日积累"></a>每日积累</h2><h3 id="扛住100亿次请求？我们来试一试"><a href="#扛住100亿次请求？我们来试一试" class="headerlink" title="扛住100亿次请求？我们来试一试"></a>扛住100亿次请求？我们来试一试</h3><p><a href="https://github.com/xiaojiaqi/10billionhongbaos/wiki/%E6%89%9B%E4%BD%8F100%E4%BA%BF%E6%AC%A1%E8%AF%B7%E6%B1%82%EF%BC%9F%E6%88%91%E4%BB%AC%E6%9D%A5%E8%AF%95%E4%B8%80%E8%AF%95" target="_blank" rel="external">https://github.com/xiaojiaqi/10billionhongbaos/wiki/%E6%89%9B%E4%BD%8F100%E4%BA%BF%E6%AC%A1%E8%AF%B7%E6%B1%82%EF%BC%9F%E6%88%91%E4%BB%AC%E6%9D%A5%E8%AF%95%E4%B8%80%E8%AF%95</a><br><a href="https://github.com/xiaojiaqi/C1000kPracticeGuide" target="_blank" rel="external">https://github.com/xiaojiaqi/C1000kPracticeGuide</a></p>
+<h3 id="Redis的内存优化"><a href="#Redis的内存优化" class="headerlink" title="Redis的内存优化"></a>Redis的内存优化</h3><p><a href="https://cachecloud.github.io/2017/02/16/Redis内存优化" target="_blank" rel="external">https://cachecloud.github.io/2017/02/16/Redis内存优化</a></p>
+<h3 id="分布式一致性算法：Raft-算法"><a href="#分布式一致性算法：Raft-算法" class="headerlink" title="分布式一致性算法：Raft 算法"></a>分布式一致性算法：Raft 算法</h3><p><a href="http://linbingdong.com/2017/02/19/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95%EF%BC%9ARaft%20%E7%AE%97%E6%B3%95%EF%BC%88Raft%20%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91%EF%BC%89" target="_blank" rel="external">http://linbingdong.com/2017/02/19/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95%EF%BC%9ARaft%20%E7%AE%97%E6%B3%95%EF%BC%88Raft%20%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91%EF%BC%89</a></p>
+<h3 id="分布式任务调度平台"><a href="#分布式任务调度平台" class="headerlink" title="分布式任务调度平台"></a>分布式任务调度平台</h3><p><a href="https://github.com/ihaolin/antares" target="_blank" rel="external">https://github.com/ihaolin/antares</a></p>
+<h2 id="单词"><a href="#单词" class="headerlink" title="单词"></a>单词</h2><p>nexus  联结，联系，关系<br>multiplexed 多路复用</p>
+<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><h3 id="java-util-concurrent-Semaphore-构造函数"><a href="#java-util-concurrent-Semaphore-构造函数" class="headerlink" title="java.util.concurrent. Semaphore 构造函数"></a>java.util.concurrent. Semaphore 构造函数</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Creates a &#123;<span class="doctag">@code</span> Semaphore&#125; with the given number of</div><div class="line"> * permits and nonfair fairness setting.</div><div class="line"> *</div><div class="line"> * <span class="doctag">@param</span> permits the initial number of permits available.</div><div class="line"> *        This value may be negative, in which case releases</div><div class="line"> *        must occur before any acquires will be granted.</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">Semaphore</span><span class="params">(<span class="keyword">int</span> permits)</span> </span>&#123;</div><div class="line">    sync = <span class="keyword">new</span> NonfairSync(permits);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// tryReleaseShared 调用之后state会加releases</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">tryReleaseShared</span><span class="params">(<span class="keyword">int</span> releases)</span> </span>&#123;</div><div class="line">    <span class="keyword">for</span> (;;) &#123;</div><div class="line">        <span class="keyword">int</span> current = getState();</div><div class="line">        <span class="keyword">int</span> next = current + releases;</div><div class="line">        <span class="keyword">if</span> (next &lt; current) <span class="comment">// overflow</span></div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> Error(<span class="string">"Maximum permit count exceeded"</span>);</div><div class="line">        <span class="keyword">if</span> (compareAndSetState(current, next))</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>入参可以为0或者负数</strong></p>
 
       
     </div>
@@ -394,11 +386,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/java/" rel="tag"># java</a>
-          
-            <a href="/tags/并发/" rel="tag"># 并发</a>
-          
-            <a href="/tags/线程池/" rel="tag"># 线程池</a>
+            <a href="/tags/日积月累/" rel="tag"># 日积月累</a>
           
         </div>
       
@@ -411,8 +399,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/19/我的第一篇日志/" rel="next" title="我的第一篇日志">
-                <i class="fa fa-chevron-left"></i> 我的第一篇日志
+              <a href="/2017/02/21/17-02-21/" rel="next" title="17-02-21">
+                <i class="fa fa-chevron-left"></i> 17-02-21
               </a>
             
           </div>
@@ -420,10 +408,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/02/20/17-02-20/" rel="prev" title="17-02-20">
-                17-02-20 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -568,7 +552,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#调用shutdown后再次调用schedule-或者scheduleAtFixedRate-的行为"><span class="nav-number">1.</span> <span class="nav-text">调用shutdown后再次调用schedule()或者scheduleAtFixedRate()的行为</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过schedule-添加的延迟执行任务还没执行时就调用shutdown-方法的行为"><span class="nav-number">2.</span> <span class="nav-text">通过schedule()添加的延迟执行任务还没执行时就调用shutdown()方法的行为</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过scheduleAtFixedRate添加任务后调用shutdown-方法的行为"><span class="nav-number">3.</span> <span class="nav-text">通过scheduleAtFixedRate添加任务后调用shutdown()方法的行为</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#每日积累"><span class="nav-number">1.</span> <span class="nav-text">每日积累</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#扛住100亿次请求？我们来试一试"><span class="nav-number">1.1.</span> <span class="nav-text">扛住100亿次请求？我们来试一试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis的内存优化"><span class="nav-number">1.2.</span> <span class="nav-text">Redis的内存优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式一致性算法：Raft-算法"><span class="nav-number">1.3.</span> <span class="nav-text">分布式一致性算法：Raft 算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式任务调度平台"><span class="nav-number">1.4.</span> <span class="nav-text">分布式任务调度平台</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单词"><span class="nav-number">2.</span> <span class="nav-text">单词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#知识"><span class="nav-number">3.</span> <span class="nav-text">知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#java-util-concurrent-Semaphore-构造函数"><span class="nav-number">3.1.</span> <span class="nav-text">java.util.concurrent. Semaphore 构造函数</span></a></li></ol></li></ol></div>
             
 
           </div>
