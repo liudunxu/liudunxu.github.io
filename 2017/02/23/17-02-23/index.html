@@ -105,7 +105,7 @@ elasticsearch可以把相同的索引别名应用到不同的索引上。这些�
 
 
 1234567891011121314151617181920212223242526">
-<meta property="og:updated_time" content="2017-02-23T12:30:49.000Z">
+<meta property="og:updated_time" content="2017-02-23T13:20:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="17-02-23">
 <meta name="twitter:description" content="elasticsearch相关
@@ -381,6 +381,15 @@ elasticsearch可以把相同的索引别名应用到不同的索引上。这些�
 </li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// apply templates, merging the mappings into the request mapping if exists</span></div><div class="line"><span class="keyword">for</span> (IndexTemplateMetaData template : templates) &#123;</div><div class="line">    templateNames.add(template.getName());</div><div class="line">    <span class="keyword">for</span> (ObjectObjectCursor&lt;String, CompressedXContent&gt; cursor : template.mappings()) &#123;</div><div class="line">        <span class="keyword">if</span> (mappings.containsKey(cursor.key)) &#123;</div><div class="line">            XContentHelper.mergeDefaults(mappings.get(cursor.key), parseMapping(cursor.value.string()));</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            mappings.put(cursor.key, parseMapping(cursor.value.string()));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// handle custom</span></div><div class="line">    <span class="keyword">for</span> (ObjectObjectCursor&lt;String, Custom&gt; cursor : template.customs()) &#123;</div><div class="line">        String type = cursor.key;</div><div class="line">        IndexMetaData.Custom custom = cursor.value;</div><div class="line">        IndexMetaData.Custom existing = customs.get(type);</div><div class="line">        <span class="keyword">if</span> (existing == <span class="keyword">null</span>) &#123;</div><div class="line">            customs.put(type, custom);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            IndexMetaData.Custom merged = existing.mergeWith(custom);</div><div class="line">            customs.put(type, merged);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//handle aliases</span></div><div class="line">    <span class="keyword">for</span> (ObjectObjectCursor&lt;String, AliasMetaData&gt; cursor : template.aliases()) &#123;</div><div class="line">        AliasMetaData aliasMetaData = cursor.value;</div><div class="line">        <span class="comment">//if an alias with same name came with the create index request itself,</span></div><div class="line">        <span class="comment">// ignore this one taken from the index template</span></div><div class="line">        <span class="keyword">if</span> (request.aliases().contains(<span class="keyword">new</span> Alias(aliasMetaData.alias()))) &#123;</div><div class="line">            <span class="keyword">continue</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//if an alias with same name was already processed, ignore this one</span></div><div class="line">        <span class="keyword">if</span> (templatesAliases.containsKey(cursor.key)) &#123;</div><div class="line">            <span class="keyword">continue</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//Allow templatesAliases to be templated by replacing a token with the name of the index that we are applying it to</span></div><div class="line">        <span class="keyword">if</span> (aliasMetaData.alias().contains(<span class="string">"&#123;index&#125;"</span>)) &#123;</div><div class="line">            String templatedAlias = aliasMetaData.alias().replace(<span class="string">"&#123;index&#125;"</span>, request.index());</div><div class="line">            aliasMetaData = AliasMetaData.newAliasMetaData(aliasMetaData, templatedAlias);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        aliasValidator.validateAliasMetaData(aliasMetaData, request.index(), currentState.metaData());</div><div class="line">        templatesAliases.put(aliasMetaData.alias(), aliasMetaData);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="hexo相关"><a href="#hexo相关" class="headerlink" title="hexo相关"></a>hexo相关</h2><ul>
+<li>报Cannot find module ‘./build/Release/DTraceProviderBindings错误处理方式<br>执行  npm install hexo-cli -g 命令修复</li>
+</ul>
+<h2 id="spring-mvc-RestController注解"><a href="#spring-mvc-RestController注解" class="headerlink" title="spring-mvc RestController注解"></a>spring-mvc RestController注解</h2><ul>
+<li>RestController注解自身注解了Controller和ResponseBody两个注解。这个注解默认代表所有的方法返回ResponseBody</li>
+</ul>
+<h2 id="单词"><a href="#单词" class="headerlink" title="单词"></a>单词</h2><ul>
+<li>precedence  优先级</li>
+</ul>
 
       
     </div>
@@ -426,6 +435,10 @@ elasticsearch可以把相同的索引别名应用到不同的索引上。这些�
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/01/17-03-01/" rel="prev" title="17-03-01">
+                17-03-01 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -497,7 +510,7 @@ elasticsearch可以把相同的索引别名应用到不同的索引上。这些�
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -570,7 +583,7 @@ elasticsearch可以把相同的索引别名应用到不同的索引上。这些�
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#elasticsearch相关"><span class="nav-number">1.</span> <span class="nav-text">elasticsearch相关</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#elasticsearch相关"><span class="nav-number">1.</span> <span class="nav-text">elasticsearch相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo相关"><span class="nav-number">2.</span> <span class="nav-text">hexo相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-mvc-RestController注解"><span class="nav-number">3.</span> <span class="nav-text">spring-mvc RestController注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单词"><span class="nav-number">4.</span> <span class="nav-text">单词</span></a></li></ol></div>
             
 
           </div>
