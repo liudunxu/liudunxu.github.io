@@ -257,6 +257,159 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/17/17-03-16/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="LiuDunxu">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="小柳蛋的日志">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="小柳蛋的日志" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/17/17-03-16/" itemprop="url">
+                  17-03-16
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-17T15:57:58+08:00">
+                2017-03-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/日积月累/" itemprop="url" rel="index">
+                    <span itemprop="name">日积月累</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="日积月累"><a href="#日积月累" class="headerlink" title="日积月累"></a>日积月累</h2><ul>
+<li><p>logger private static final<br><a href="https://sbforge.org/sonar/rules/show/squid:S1312?layout=false" target="_blank" rel="external">https://sbforge.org/sonar/rules/show/squid:S1312?layout=false</a></p>
+</li>
+<li><p>guava cache cleanup 机制<br>When Does Cleanup Happen?<br>Caches built with CacheBuilder do not perform cleanup and evict values “automatically,” or instantly after a value expires, or anything of the sort. Instead, it performs small amounts of maintenance during write operations, or during occasional read operations if writes are rare.<br>The reason for this is as follows: if we wanted to perform Cache maintenance continuously, we would need to create a thread, and its operations would be competing with user operations for shared locks. Additionally, some environments restrict the creation of threads, which would make CacheBuilder unusable in that environment.<br>Instead, we put the choice in your hands. If your cache is high-throughput, then you don’t have to worry about performing cache maintenance to clean up expired entries and the like. If your cache does writes only rarely and you don’t want cleanup to block cache reads, you may wish to create your own maintenance thread that calls Cache.cleanUp() at regular intervals.</p>
+</li>
+<li><p>guava  ClassPath<br>可以遍历class</p>
+</li>
+</ul>
+<h2 id="英语"><a href="#英语" class="headerlink" title="英语"></a>英语</h2><ul>
+<li>bundle  一批，大量</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/14/17-03-14/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1626,160 +1779,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/19/ScheduledThreadPoolExecutor的shutdown方法分析/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="LiuDunxu">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="小柳蛋的日志">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="小柳蛋的日志" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/02/19/ScheduledThreadPoolExecutor的shutdown方法分析/" itemprop="url">
-                  ScheduledThreadPoolExecutor的shutdown方法行为
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-19T18:36:30+08:00">
-                2017-02-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术文章/" itemprop="url" rel="index">
-                    <span itemprop="name">技术文章</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="调用shutdown后再次调用schedule-或者scheduleAtFixedRate-的行为"><a href="#调用shutdown后再次调用schedule-或者scheduleAtFixedRate-的行为" class="headerlink" title="调用shutdown后再次调用schedule()或者scheduleAtFixedRate()的行为"></a>调用shutdown后再次调用schedule()或者scheduleAtFixedRate()的行为</h2><p><strong>默认会直接抛出RejectedExecutionException异常</strong></p>
-<p>具体原因是：<br>ScheduledThreadPoolExecutor在任务提交后，会将任务包装成ScheduledFutureTask，然后调用delayedExecute方法，这个方法代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">delayedExecute</span><span class="params">(RunnableScheduledFuture&lt;?&gt; task)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (isShutdown())  <span class="comment">// 如果任务shutdown了，会直接reject</span></div><div class="line">            reject(task);</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">super</span>.getQueue().add(task);</div><div class="line">            <span class="keyword">if</span> (isShutdown() &amp;&amp;</div><div class="line">                !canRunInCurrentRunState(task.isPeriodic()) &amp;&amp;</div><div class="line">                remove(task))</div><div class="line">                task.cancel(<span class="keyword">false</span>);</div><div class="line">            <span class="keyword">else</span></div><div class="line">                ensurePrestart();</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
-<p>而reject方法会调用ThreadPoolExecutor的成员变量handler的rejectedExecution方法，默认的handler实现为AbortPolicy，这个的实现是抛出RejectedExecutionException异常</p>
-<p><strong>handler的具体实现可以通过ScheduledThreadPoolExecutor 的setRejectedExecutionHandler函数或者构造函数中修改</strong></p>
-<h2 id="通过schedule-添加的延迟执行任务还没执行时就调用shutdown-方法的行为"><a href="#通过schedule-添加的延迟执行任务还没执行时就调用shutdown-方法的行为" class="headerlink" title="通过schedule()添加的延迟执行任务还没执行时就调用shutdown()方法的行为"></a>通过schedule()添加的延迟执行任务还没执行时就调用shutdown()方法的行为</h2><p><strong>默认会继续执行还未来得及执行的任务</strong></p>
-<p>具体原因是：ScheduledFutureTask的run方法实现如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">boolean</span> periodic = isPeriodic();</div><div class="line">            <span class="keyword">if</span> (!canRunInCurrentRunState(periodic))</div><div class="line">                cancel(<span class="keyword">false</span>);</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (!periodic)</div><div class="line">                ScheduledFutureTask.<span class="keyword">super</span>.run();</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (ScheduledFutureTask.<span class="keyword">super</span>.runAndReset()) &#123;</div><div class="line">                setNextRunTime();</div><div class="line">                reExecutePeriodic(outerTask);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">canRunInCurrentRunState</span><span class="params">(<span class="keyword">boolean</span> periodic)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> isRunningOrShutdown(periodic ?</div><div class="line">                                   continueExistingPeriodicTasksAfterShutdown :</div><div class="line">                                   executeExistingDelayedTasksAfterShutdown);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p>通过schedule方法包装成的ScheduledFutureTask的成员变量的isPeriodic()实现返回的是false，所以canRunInCurrentRunState函数的返回值取决于executeExistingDelayedTasksAfterShutdown，而这个变量默认为true，所以会继续执行已经schedule的方法。</p>
-<p><strong>可以通过ScheduledThreadPoolExecutor 的setExecuteExistingDelayedTasksAfterShutdownPolicy函数修改</strong></p>
-<h2 id="通过scheduleAtFixedRate添加任务后调用shutdown-方法的行为"><a href="#通过scheduleAtFixedRate添加任务后调用shutdown-方法的行为" class="headerlink" title="通过scheduleAtFixedRate添加任务后调用shutdown()方法的行为"></a>通过scheduleAtFixedRate添加任务后调用shutdown()方法的行为</h2><p><strong>默认会停止继续执行该任务</strong></p>
-<p>原因为：通过scheduleAtFixedRate方法包装成的ScheduledFutureTask的成员变量的isPeriodic()实现返回的是true，所以canRunInCurrentRunState函数的返回值取决于continueExistingPeriodicTasksAfterShutdown，而这个变量默认为false，所以会停止执行已经schedule的方法。</p>
-<p><strong>可以通过ScheduledThreadPoolExecutor的setContinueExistingPeriodicTasksAfterShutdownPolicy函数修改</strong></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1829,7 +1828,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
